@@ -13,27 +13,24 @@ function main() {
 }
 
 const REPLACE_RULES = [
-	{
-		"⇐⇒": "\\Longleftrightarrow",
-		"· · ·": "\\dots",
-		"¨a": "ä",
-		"¨o": "ö",
-		"¨u": "ü",
-		"¨A": "Ä",
-		"¨O": "Ö",
-		"¨U": "Ü"
-	},
-	{
-		"≡": "\\equiv ",
-		"↔": "\\leftrightarrow ",
-		"∧": "\\land ",
-		"∨": "\\lor ",
-		"¬": "\\neg ",
-		"→": "\\rightarrow ",
-		"⊤": "\\top ",
-		"⊥": "\\perp "
-	}
-]
+	["⇐⇒", "\\Longleftrightarrow"],
+	["· · ·", "\\dots"],
+	["¨a", "ä"],
+	["¨o", "ö"],
+	["¨u", "ü"],
+	["¨A", "Ä"],
+	["¨O", "Ö"],
+	["¨U", "Ü"],
+
+	["≡", "\\equiv "],
+	["↔", "\\leftrightarrow "],
+	["∧", "\\land "],
+	["∨", "\\lor "],
+	["¬", "\\neg "],
+	["→", "\\rightarrow "],
+	["⊤", "\\top "],
+	["⊥", "\\perp "]
+];
 
 const GREEK_LETTERS =
 {
@@ -58,10 +55,8 @@ function applyFilter(text) {
 	});
 
 	// miscellaneous replacement rules
-	for (ruleset of REPLACE_RULES) {
-		for (match in ruleset) {
-			text = text.replaceAll(match, ruleset[match]);
-		}
+	for (const rule of REPLACE_RULES) {
+		text = text.replaceAll(rule[0], rule[1]);
 	}
 
 	// try to find sections of math mode (it's easier to try and match the text surrounding math symbols starting with backslashes)
