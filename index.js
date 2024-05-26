@@ -13,8 +13,13 @@ function main() {
 }
 
 const REPLACE_RULES = [
+	["{", "\\{"],
+	["}", "\\}"],
 	["⇐⇒", "\\Longleftrightarrow"],
 	["· · ·", "\\dots"],
+	[". . .", "\\dots"],
+	["...", "\\dots"],
+	["...", "\\dots"],
 	["¨a", "ä"],
 	["¨o", "ö"],
 	["¨u", "ü"],
@@ -31,7 +36,8 @@ const REPLACE_RULES = [
 	["→", "\\rightarrow "],
 	["⊤", "\\top "],
 	["⊥", "\\perp "],
-	["∈", "\\in "]
+	["∈", "\\in "],
+	["⊆", "\\subseteq"]
 ];
 
 const GREEK_LETTERS =
