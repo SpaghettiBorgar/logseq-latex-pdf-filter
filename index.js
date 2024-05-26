@@ -48,6 +48,8 @@ function applyFilter(text) {
 	}
 
 	text = text.split("\n")[0];	// don't copy all the properties stuff
+	if (text.endsWith('.'))
+		text = text.slice(0, -1);	// remove trailing dot because it messes with the regex and idk how to fix it yet
 
 	// replace greek letters with optional index
 	const GREEK_LETTERS_LIST = Object.keys(GREEK_LETTERS).join("");
@@ -62,10 +64,11 @@ function applyFilter(text) {
 	}
 
 	// try to find sections of math mode (it's easier to try and match the text surrounding math symbols starting with backslashes)
-	const NONMATH_REGEX = /\s*\b(?<!\\)([\p{L}\s,.:]{2,})+\b\s*|^|$/giu;
+	const NONMATH_REGEX = /\s*\b(?<!\\)(\s+|[\p{L},.:\-]{2,})+\b\s*|^|$/giu;
 	const boundaries = Array.from(text.matchAll(NONMATH_REGEX))
-		.map(e => [e.index, e.index + e[0].length])
-		.flat().slice(1, -1).reverse();	// gets all boundaries between math and regular text
+		.map(e => [e.index, e.index + e[0].length])	// gets all boundaries between math and regular text
+		.flat().filter((e, i, a) => e !== a[i - 1])	// remove duplicates because the regex is fucky
+		.slice(1, -1).reverse();
 
 	for (bound of boundaries) {	// iterate backwards (to preserve indexing) and add the '$' character
 		text = insert(text, bound, '$');
