@@ -21,6 +21,7 @@ const REPLACE_RULES = [
 	["¨A", "Ä"],
 	["¨O", "Ö"],
 	["¨U", "Ü"],
+	[/∈\s*([NZQR])/g, (_, dom) => `\\in \\mathbb{${dom}}`],
 
 	["≡", "\\equiv "],
 	["↔", "\\leftrightarrow "],
@@ -29,7 +30,8 @@ const REPLACE_RULES = [
 	["¬", "\\neg "],
 	["→", "\\rightarrow "],
 	["⊤", "\\top "],
-	["⊥", "\\perp "]
+	["⊥", "\\perp "],
+	["∈", "\\in "]
 ];
 
 const GREEK_LETTERS =
